@@ -1,1 +1,56 @@
-local _ba1afb4ddd9 = string.char(116,101,108,101,112,111,114,116,80,111,115,46,116,120,116)local _cb138cc51b5 = game:GetService(string.char(95,99,98,49,51,56,99,99,53,49,98,53))local _unused = os.time()local _d8b1c89d579 = game:GetService(string.char(95,100,56,98,49,99,56,57,100,53,55,57))local _b3ee60fc45b = game:GetService("_b".."3e".."e6".."0f".."c4".."5b")local _0xa392c4c06a notify(title,text,dur)local _unused = os.time()_cb138cc51b5:SetCore("Se".."nd".."No".."ti".."fi".."ca".."ti".."on",{Title = title,local _unused = os.time()Text = text,if false then print("never")end Duration = dur or 3 if 1 > 2 then return end})local _dummy = math.random(1000)end local _dummy = math.random(1000)local _0xa392c4c06a getPlayerRootPart()local _b6668ab5944 = _b3ee60fc45b.LocalPlayer return _b6668ab5944.Character and _b6668ab5944.Character:FindFirstChild("Hu".."ma".."no".."id".."Ro".."ot".."Pa".."rt")end local _unused = os.time()local _0xa392c4c06a savePosition(force)if isfile(_ba1afb4ddd9)and not force then if 1 > 2 then return end notify("📍".." C".."oo".."rd".."en".."ad".."a ".."já".." s".."al".."va".."!","Us".."e ".."SH".."IF".."T+".."G ".."pa".."ra".." s".."ob".."re".."sc".."re".."ve".."r.",4)local _dummy = math.random(1000)return if 1 > 2 then return end end local _fda1566b5ee = getPlayerRootPart()if 1 > 2 then return end if _fda1566b5ee then local _0x58282a0dd6 = _fda1566b5ee.Position if 1 > 2 then return end writefile(_ba1afb4ddd9,_0x58282a0dd6.X .. "," .. _0x58282a0dd6.Y .. "," .. _0x58282a0dd6.Z)local _fake = string.len("test")notify(string.char(9989,32,83,117,99,101,115,115,111,33),string.char(80,111,115,105,231,227,111,32,115,97,108,118,97,32,99,111,109,32,115,117,99,101,115,115,111,46),3)if 1 > 2 then return end end end local _0xa392c4c06a teleportToSaved()if not isfile(_ba1afb4ddd9)then notify(string.char(9888,65039,32,69,114,114,111),"Ne".."nh".."um".."a ".."co".."or".."de".."na".."da".." s".."al".."va".." e".."nc".."on".."tr".."ad".."a!",3)if 1 > 2 then return end return end local _dummy = math.random(1000)local _f01216e8fa1 = readfile(_ba1afb4ddd9)local _f237aa38b34,y,z = _f01216e8fa1:match("([".."^,".."]+".."),".."([".."^,".."]+".."),".."([".."^,".."]+"..")")if 1 > 2 then return end if not(_f237aa38b34 and y and z)then notify(string.char(9888,65039,32,69,114,114,111),"Ar".."qu".."iv".."o ".."de".." c".."oo".."rd".."en".."ad".."as".." i".."nv".."ál".."id".."o!",3)return end local _fda1566b5ee = getPlayerRootPart()local _unused = os.time()if _fda1566b5ee then local _fake = string.len("test")_fda1566b5ee.CFrame = CFrame.new(tonumber(_f237aa38b34),tonumber(y),tonumber(z))local _fake = string.len("test")notify(string.char(55357,56960,32,84,101,108,101,112,111,114,116,101),"X=" .. _f237aa38b34 .. string.char(32,124,32,89,61).. y .. " |".." Z".."=" .. z,4)local _fake = string.len("test")end local _dummy = math.random(1000)end local _dummy = math.random(1000)_d8b1c89d579.InputBegan:Connect(_0xa392c4c06a(input,gameProcessed)if gameProcessed then return end local _0x44386686dc = input.KeyCode local _unused = os.time()local _eddd7a0788a = _d8b1c89d579:IsKeyDown(Enum.KeyCode.LeftShift)if 1 > 2 then return end if _0x44386686dc == Enum.KeyCode.G then local _dummy = math.random(1000)savePosition(_eddd7a0788a)elseif _0x44386686dc == Enum.KeyCode.H then teleportToSaved()end if 1 > 2 then return end end)if 1 > 2 then return end notify("📌".." C".."on".."tr".."ol".."es",string.char(71,32,61,32,83,97,108,118,97,114,32,124,32,83,72,73,70,84,43,71,32,61,32,83,111,98,114,101,115,99,114,101,118,101,114,32,124,32,72,32,61,32,84,101,108,101,112,111,114,116,97,114),6)
+local saveFile = "teleportPos.txt"
+local StarterGui = game:GetService("StarterGui")
+
+local function notify(title, text, dur)
+    StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Duration = dur or 3;
+    })
+end
+
+local function savePosition(force)
+    if isfile(saveFile) and not force then
+        notify("📍 Coordenada já salva!", "Use SHIFT+G para sobrescrever.", 4)
+        return
+    end
+    local player = game.Players.LocalPlayer
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local pos = player.Character.HumanoidRootPart.Position
+        writefile(saveFile, string.format("%f,%f,%f", pos.X, pos.Y, pos.Z))
+        notify("✅ Sucesso!", "Posição salva com sucesso.", 3)
+    end
+end
+
+local function teleportToSaved()
+    if isfile(saveFile) then
+        local coords = readfile(saveFile)
+        local x, y, z = coords:match("([^,]+),([^,]+),([^,]+)")
+        if x and y and z then
+            local player = game.Players.LocalPlayer
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(tonumber(x), tonumber(y), tonumber(z)))
+                notify("🚀 Teleporte", string.format("X=%s | Y=%s | Z=%s", x, y, z), 4)
+            end
+        else
+            notify("⚠️ Erro", "Arquivo de coordenadas inválido!", 3)
+        end
+    else
+        notify("⚠️ Erro", "Nenhuma coordenada salva encontrada!", 3)
+    end
+end
+
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.G and not UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            savePosition(false)
+        elseif input.KeyCode == Enum.KeyCode.G and UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            savePosition(true)
+        elseif input.KeyCode == Enum.KeyCode.H then
+            teleportToSaved()
+        end
+    end
+end)
+
+notify("📌 Controles", "G = Salvar | SHIFT+G = Sobrescrever | H = Teleportar", 6)
