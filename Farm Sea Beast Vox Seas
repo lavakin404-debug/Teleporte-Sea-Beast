@@ -1,0 +1,56 @@
+local saveFile = "teleportPos.txt"
+local StarterGui = game:GetService("StarterGui")
+
+local function notify(title, text, dur)
+    StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Duration = dur or 3;
+    })
+end
+
+local function savePosition(force)
+    if isfile(saveFile) and not force then
+        notify("📍 Coordenada já salva!", "Use SHIFT+G para sobrescrever.", 4)
+        return
+    end
+    local player = game.Players.LocalPlayer
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local pos = player.Character.HumanoidRootPart.Position
+        writefile(saveFile, string.format("%f,%f,%f", pos.X, pos.Y, pos.Z))
+        notify("✅ Sucesso!", "Posição salva com sucesso.", 3)
+    end
+end
+
+local function teleportToSaved()
+    if isfile(saveFile) then
+        local coords = readfile(saveFile)
+        local x, y, z = coords:match("([^,]+),([^,]+),([^,]+)")
+        if x and y and z then
+            local player = game.Players.LocalPlayer
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(tonumber(x), tonumber(y), tonumber(z)))
+                notify("🚀 Teleporte", string.format("X=%s | Y=%s | Z=%s", x, y, z), 4)
+            end
+        else
+            notify("⚠️ Erro", "Arquivo de coordenadas inválido!", 3)
+        end
+    else
+        notify("⚠️ Erro", "Nenhuma coordenada salva encontrada!", 3)
+    end
+end
+
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.G and not UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            savePosition(false)
+        elseif input.KeyCode == Enum.KeyCode.G and UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            savePosition(true)
+        elseif input.KeyCode == Enum.KeyCode.H then
+            teleportToSaved()
+        end
+    end
+end)
+
+notify("📌 Controles", "G = Salvar | SHIFT+G = Sobrescrever | H = Teleportar", 6)
